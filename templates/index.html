@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Holanda</title>
+</head>
+<body>
+	<h1 style="color:green">Cristobal</h1>
+	<ul>
+		{% for em in empresa %}
+			<li>{{em.empresa}} 
+				<img src="{{em.logo.url}}" alt="">
+				- 
+			</li>
+		{% endfor %}
+	</ul>
+</body>
+</html>
