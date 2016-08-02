@@ -2,15 +2,16 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Holanda</title>
+	<title>Empresa</title>
 </head>
 <body>
 	<h1 style="color:green">Cristobal</h1>
+	<a href="{% url 'empresa.views.nueva_empresa' %}">Nueva empresa</a>
 	<ul>
 		{% for em in empresa %}
-			<li>{{em.empresa}} 
+			<li>
+				<a href="{% url 'empresa.views.empresa_detalle' pk=em.pk %}">{{em.empresa}}</a>
 				<img src="{{em.logo.url}}" alt="">
-				- 
 			</li>
 		{% endfor %}
 	</ul>
