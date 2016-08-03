@@ -1,5 +1,5 @@
 from django.template import loader
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 
 from .forms import EmpresaNueva
@@ -29,7 +29,7 @@ def nueva_empresa(request):
 		if form.is_valid():
 			product = form.save()
 			product.save()
-			return HttpResponseRedirect('views.empresa_detalle')
+			return HttpResponseRedirect('/')
 	else:
 		form = EmpresaNueva()
 
