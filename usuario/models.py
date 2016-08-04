@@ -9,8 +9,8 @@ class Usuario(models.Model):
 	login = models.CharField(max_length=100)
 	clave = models.CharField(max_length=100)
 	activo = models.IntegerField()
-	id_tipo_usuario = models.ForeignKey(tipo_usuario)
-	id_empresa = models.ForeignKey(Empresa)
+	id_tipo_usuario = models.ForeignKey(tipo_usuario, blank=True, null=True)
+	id_empresa = models.ForeignKey(Empresa, blank=True, null=True)
 
 	def __str__(self):
 		return self.login
