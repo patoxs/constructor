@@ -1,6 +1,8 @@
 from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+from rest_framework import viewsets
+from .serializers import EmpresaSerializer
 
 from .forms import EmpresaNueva
 
@@ -38,3 +40,8 @@ def nueva_empresa(request):
 		'form': form
 	}
 	return HttpResponse(template.render(contexto, request))
+
+
+class EmpresaViewSet(viewsets.ModelViewSet):
+    queryset = Empresa.objects.all()
+    serializer_class = EmpresaSerializer

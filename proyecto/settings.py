@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    #app instaladas
     'empresa.apps.EmpresaConfig',
     'mandante.apps.MandanteConfig',
     'tipo_usuario.apps.TipoUsuarioConfig',
@@ -38,13 +39,40 @@ INSTALLED_APPS = [
     'obra.apps.ObraConfig',
     'categoria.apps.CategoriaConfig',
     'partida.apps.PartidaConfig',
+    'tipo_presupuesto.apps.TipoPresupuestoConfig',
+    'presupuesto.apps.PresupuestoConfig',
+    'unidad_medida.apps.UnidadMedidaConfig',
+    'presupuesto_detalle.apps.PresupuestoDetalleConfig',
+    'impuesto.apps.ImpuestoConfig',
+    'impuesto_presupuesto.apps.ImpuestoPresupuestoConfig',
+    #config default
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #django rest auth
+    'rest_framework',
+    'rest_framework.authtoken',
+    'django.contrib.sites',
+    'rest_auth',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
 ]
+
+#SITIO CREADO POR DEFECTO
+SITE_ID = 1
+
+#PARA EL FUNCIONAMIENTO DE ENVIO DE EMAIL EN EL REGISTRO
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES' : ('rest_framework.permissions.IsAuthenticated',),
+    'DEFAULT_AUTHENTICATION_CLASSES' : ('rest_framework.authentication.TokenAuthentication',),
+    'PAGE_SIZE': 15
+}
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
