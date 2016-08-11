@@ -1,47 +1,57 @@
-from django.template import loader
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
-from rest_framework import viewsets
+from django.shortcuts import get_object_or_404
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Empresa
 from .serializers import EmpresaSerializer
 
-from .forms import EmpresaNueva
 
-from .models import Empresa
-# Create your views here.
 
-def index(request):
-	empresa = Empresa.objects.order_by('id')
-	template = loader.get_template('index.html')
-	contexto = {
-		'empresa': empresa
-	}
-	return HttpResponse(template.render(contexto,request))
+# from .forms import EmpresaNueva
+
+# from .models import Empresa
+# # Create your views here.
+
+# def index(request):
+# 	empresa = Empresa.objects.order_by('id')
+# 	template = loader.get_template('index.html')
+# 	contexto = {
+# 		'empresa': empresa
+# 	}
+# 	return HttpResponse(template.render(contexto,request))
 	
-def empresa_detalle(request, pk):
-	empresa = get_object_or_404(Empresa, pk=pk)
-	template = loader.get_template('empresa_detalle.html')
-	contexto = {
-		'empresa': empresa
-	}
-	return HttpResponse(template.render(contexto, request))
+# def empresa_detalle(request, pk):
+# 	empresa = get_object_or_404(Empresa, pk=pk)
+# 	template = loader.get_template('empresa_detalle.html')
+# 	contexto = {
+# 		'empresa': empresa
+# 	}
+# 	return HttpResponse(template.render(contexto, request))
 
-def nueva_empresa(request):
-	if request.method == 'POST':
-		form = EmpresaNueva(request.POST, request.FILES)
-		if form.is_valid():
-			product = form.save()
-			product.save()
-			return HttpResponseRedirect('/')
-	else:
-		form = EmpresaNueva()
+# def nueva_empresa(request):
+# 	if request.method == 'POST':
+# 		form = EmpresaNueva(request.POST, request.FILES)
+# 		if form.is_valid():
+# 			product = form.save()
+# 			product.save()
+# 			return HttpResponseRedirect('/')
+# 	else:
+# 		form = EmpresaNueva()
 
-	template = loader.get_template('empresa_nueva.html')
-	contexto = {
-		'form': form
-	}
-	return HttpResponse(template.render(contexto, request))
+# 	template = loader.get_template('empresa_nueva.html')
+# 	contexto = {
+# 		'form': form
+# 	}
+# 	return HttpResponse(template.render(contexto, request))
 
 
-class EmpresaViewSet(viewsets.ModelViewSet):
-    queryset = Empresa.objects.all()
-    serializer_class = EmpresaSerializer
+#empresa/
+class EmpresaList(APIView):
+
+	def get(self, request):
+		empresa = Empresa.objects.all()
+		serializer = EmpresaSerializer(empresa, many=True)
+		return Response(serializer.data)
+
+	def post(self):
+		pass
