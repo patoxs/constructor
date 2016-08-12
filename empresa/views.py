@@ -48,10 +48,18 @@ from .serializers import EmpresaSerializer
 #empresa/
 class EmpresaList(APIView):
 
-	def get(self, request):
-		empresa = Empresa.objects.all()
-		serializer = EmpresaSerializer(empresa, many=True)
-		return Response(serializer.data)
+	serializer_class = EmpresaSerializer
+
+	def get(self, request, id=None, format=None):
+		if id != None:
+			empresa = get_object_or_404(Empresa,pk=id)
+			todos = False
+		else:
+			empresa = Empresa.objects.all()
+			todos = True
+		
+		respuesta = EmpresaSerializer(empresa, many=todos)
+		return Response(respuesta.data)
 
 	def post(self):
 		pass
