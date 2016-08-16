@@ -1,9 +1,11 @@
-from django.conf.urls import url
-from empresa.views import *
+from django.conf.urls import url, include
+from rest_framework.routers import DefaultRouter
+#from empresa.views import EmpresaViewset
+from empresa import views
 
-empresa = EmpresaList.as_view()
+router = DefaultRouter()
+router.register(r'empresa', views.EmpresaViewset)
 
 urlpatterns = [
-	url(r'^empresa/$',empresa,name='empresa'),
-	url(r'^empresa/(?P<id>\d+)/$',empresa,name='empresa')
+	url(r'^', include(router.urls)),
 ]
